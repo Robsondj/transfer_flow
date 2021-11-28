@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Services\CreateTransferService;
+use Exception;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class TransferController extends Controller
 {
@@ -16,7 +18,13 @@ class TransferController extends Controller
      */
     public function transfer(Request $request)
     {
-
-        CreateTransferService::run([]);
+        try {
+            CreateTransferService::run($request->all());
+            return response()->json(['Sucesso'], Response::HTTP_CREATED);
+        } catch(Exception $err) {
+            return response()->json([
+                'errors' => empty(json_decode($err->getMessage())) ? $err->getMessage() : json_decode($err->getMessage())
+            ], Response::HTTP_NOT_ACCEPTABLE);
+        }
     }
 }

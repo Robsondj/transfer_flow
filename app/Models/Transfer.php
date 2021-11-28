@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Transfer extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'payer',
+        'payee',
+        'value'
+    ];
 }

@@ -3,12 +3,12 @@
 namespace App\Repositories;
 
 use App\Models\TransferUser;
-use App\Repositories\Traits\FindAll;
+use App\Repositories\Traits\Find;
 
 final class TransferUserRepository extends BaseRepository
 {
 
-    use FindAll;
+    use Find;
     /**
      * create a isntance of TransferUser for entiry
      *

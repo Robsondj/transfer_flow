@@ -23,5 +23,13 @@ class WalletSeeder extends Seeder
                 'balance' => 1000.00
             ]);
         }
+        
+        $users = $transferUser->where('document_type',TransferUser::DOCUMENT_TYPE_CNPJ)->get();
+        foreach($users as $user) {
+            Wallet::query()->create([
+                'transfer_user_id' => $user->id,
+                'balance' => 0.00
+            ]);
+        }
     }
 }

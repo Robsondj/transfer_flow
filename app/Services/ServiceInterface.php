@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-interface InterfaceService {
+interface ServiceInterface {
 
     /**
      * Method to call service functionalities

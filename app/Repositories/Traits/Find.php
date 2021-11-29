@@ -2,17 +2,17 @@
 
 namespace App\Repositories\Traits;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 trait Find
 {
 
     /**
-     * get all data from model
+     * get data from model by id
      *
-     * @return Collection
+     * @return Model
      */
-    public function find($id)
+    public function find(int $id): ?Model
     {
         return $this->entity->find($id);
     }

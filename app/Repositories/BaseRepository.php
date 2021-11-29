@@ -15,7 +15,7 @@ abstract class BaseRepository
     protected $entity;
 
     /**
-     * create a isntance of Model for entiry
+     * create a isntance of Model for entity
      *
      * @param Model $entity
      */

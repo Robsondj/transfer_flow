@@ -10,7 +10,7 @@ final class TransferUserRepository extends BaseRepository
 
     use Find;
     /**
-     * create a isntance of TransferUser for entiry
+     * create a isntance of TransferUser for entity
      *
      */
     public function __construct()
@@ -18,9 +18,4 @@ final class TransferUserRepository extends BaseRepository
         parent::__construct(new TransferUser());
     }
 
-    public function transfer(TransferUser $payer, TransferUser $payee, $value)
-    {
-
-        return true;
-    }
 }

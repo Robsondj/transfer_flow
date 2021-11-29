@@ -13,8 +13,9 @@ final class TransferRepository extends BaseRepository
 
     use Find;
     /**
-     * create a isntance of TransferUser for entiry
+     * create a isntance of Transfer for entiry
      *
+     * @param Transfer $entity
      */
     public function __construct()
     {
@@ -26,12 +27,12 @@ final class TransferRepository extends BaseRepository
      *
      * @param TransferUser $payer
      * @param TransferUser $payee
-     * @param [type] $value
+     * @param float $value
      * @return void
      */
     public function transfer(TransferUser $payer, TransferUser $payee, float $value)
     {
-        $transfer = Transfer::create([
+        $transfer = $this->entity->create([
             'id' => (string) Uuid::uuid4(),
             'payer' => $payer->id,
             'payee' => $payee->id,

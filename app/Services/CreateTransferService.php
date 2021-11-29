@@ -29,9 +29,9 @@ final class CreateTransferService implements ServiceInterface
         DB::beginTransaction();
         $transfer = $transferRepository->transfer($payer, $payee, Arr::get($data, 'value'));
 
-        if(empty($transfer) === false || AuthorizeTransactionService::run()) {
+        if(empty($transfer) || !AuthorizeTransactionService::run()) {
             DB::rollBack();
-            throw new Exception("Transação não autorizada");
+            throw new Exception("Unauthorized transaction.");
         }
         DB::commit();
         return true;

@@ -6,7 +6,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\HttpFoundation\Response;
 
-final class AuthorizeTransactionService implements InterfaceService
+final class AuthorizeTransactionService implements ServiceInterface
 {
 
     const AUTHORIZE_MESSAGE = "Autorizado";

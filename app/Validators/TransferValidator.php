@@ -36,13 +36,13 @@ class TransferValidator extends BaseValidator
         $transferUserRepository = new TransferUserRepository();
         $payer = $transferUserRepository->find(Arr::get($this->data, 'payer'));
         if(empty($payer)) {
-            throw new Exception("Pagador não encontrado");
+            throw new Exception("Payer not found.");
         }
         if($payer->document_type !== TransferUser::DOCUMENT_TYPE_CPF) {
-            throw new Exception("Somente pessoa física pode fazer transferências.");
+            throw new Exception("Only individuals can make transfers.");
         }
         if($payer->wallet->balance - Arr::get($this->data, 'value') < 0) {
-            throw new Exception("Saldo insuficiente para essa transferência.");
+            throw new Exception("Insufficient balance for this transfer.");
         }
         return $payer;
     }
@@ -57,10 +57,10 @@ class TransferValidator extends BaseValidator
         $transferUserRepository = new TransferUserRepository();
         $payee = $transferUserRepository->find(Arr::get($this->data, 'payee'));
         if(Arr::get($this->data, 'payee') === Arr::get($this->data, 'payer')) {
-            throw new Exception("Beneficiário e Pagador não podem ser o mesmo.");
+            throw new Exception("Payee and Payer can not be the same.");
         }
         if(empty($payee)) {
-            throw new Exception("Beneficiário não encontrado.");
+            throw new Exception("Payee not found.");
         }
         return $payee;
     }

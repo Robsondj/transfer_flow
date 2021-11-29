@@ -8,7 +8,7 @@ use Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
-final class CreateTransferService implements InterfaceService
+final class CreateTransferService implements ServiceInterface
 {
 
     /**

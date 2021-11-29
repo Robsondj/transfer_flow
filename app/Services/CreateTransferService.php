@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use App\Validators\TransferValidator;
-use App\Repositories\TransferUserRepository;
+use App\Repositories\TransferRepository;
+use Exception;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 final class CreateTransferService implements InterfaceService
 {
@@ -19,11 +21,19 @@ final class CreateTransferService implements InterfaceService
     {
         $transferValidator = new TransferValidator($data);
         $transferValidator->validate();
+        $payer = $transferValidator->validatePayer();
+        $payee = $transferValidator->validatePayee();
+        
+        $transferRepository = new TransferRepository();
 
-        $transferUserRepository = new TransferUserRepository();
-        $payer = $transferUserRepository->find(Arr::get($data, 'payer'));
-        $payee = $transferUserRepository->find(Arr::get($data, 'payee'));
-        $transferValidator->validateUsers($payer->first(), $payee->first(), Arr::get($data, 'value'));
+        DB::beginTransaction();
+        $transfer = $transferRepository->transfer($payer, $payee, Arr::get($data, 'value'));
+
+        if(empty($transfer) === false || AuthorizeTransactionService::run()) {
+            DB::rollBack();
+            throw new Exception("Transação não autorizada");
+        }
+        DB::commit();
         return true;
     }
     

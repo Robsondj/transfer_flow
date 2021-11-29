@@ -9,9 +9,13 @@ class Transfer extends Model
 {
     use HasFactory;
 
+    protected $keyType = 'string';
+
     protected $fillable = [
+        'id',
         'payer',
         'payee',
         'value'
     ];
+
 }

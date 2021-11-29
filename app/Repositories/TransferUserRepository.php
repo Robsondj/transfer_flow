@@ -17,4 +17,10 @@ final class TransferUserRepository extends BaseRepository
     {
         parent::__construct(new TransferUser());
     }
+
+    public function transfer(TransferUser $payer, TransferUser $payee, $value)
+    {
+
+        return true;
+    }
 }

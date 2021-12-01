@@ -20,7 +20,9 @@ class TransferController extends Controller
     {
         try {
             CreateTransferService::run($request->all());
-            return response()->json(['Sucesso'], Response::HTTP_CREATED);
+            return response()->json([
+                "message" => "success"
+            ], Response::HTTP_CREATED);
         } catch(Exception $err) {
             return response()->json([
                 'errors' => empty(json_decode($err->getMessage())) ? $err->getMessage() : json_decode($err->getMessage())

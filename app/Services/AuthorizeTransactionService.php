@@ -11,6 +11,12 @@ final class AuthorizeTransactionService implements ServiceInterface
 
     const AUTHORIZE_MESSAGE = "Autorizado";
 
+    /**
+     * Consult transfer authorization 
+     *
+     * @param array $data
+     * @return boolean
+     */
     public static function run($data = []): bool
     {
         $response = Http::get(env("AUTHORIZE_TRANSFER_URL"));

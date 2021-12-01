@@ -3,10 +3,8 @@
 namespace App\Validators;
 
 use App\Models\TransferUser;
-use App\Repositories\BaseRepository;
 use App\Repositories\TransferUserRepository;
 use Exception;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
 
 class TransferValidator extends BaseValidator

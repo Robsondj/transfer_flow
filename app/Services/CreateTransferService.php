@@ -34,6 +34,11 @@ final class CreateTransferService implements ServiceInterface
             throw new Exception("Unauthorized transaction.");
         }
         DB::commit();
+
+        SendEmailConfirmationService::run([
+            "email" => $payee->email
+        ]);
+        
         return true;
     }
     

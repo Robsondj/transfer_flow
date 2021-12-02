@@ -4,11 +4,12 @@ namespace App\Repositories;
 
 use App\Models\TransferUser;
 use App\Repositories\Traits\Find;
+use App\Repositories\Traits\FindBy;
 
 final class TransferUserRepository extends BaseRepository
 {
 
-    use Find;
+    use Find, FindBy;
     /**
      * create a isntance of TransferUser for entity
      *

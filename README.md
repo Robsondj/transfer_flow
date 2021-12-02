@@ -16,3 +16,15 @@
 
 ## Running tests
     `php artisan test --filter Transfer`
+
+## Stopping containers
+    `docker-compose down`
+
+## DER for api
+<p align="center">
+  <img width="450" src="public/der.jpg" alt="DER">
+</p>
+
+## Endpoint for api
+- This endpoint is based on the default configurations inside the env-example
+`http://localhost:8081/api/transfer/`

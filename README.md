@@ -8,7 +8,7 @@
 
 ## Running migrations
     `php artisan migrate`
-    To clear database and run all
+### To clear database and run all
     `php artisan migrate:fresh`
 
 ## Running Seeders

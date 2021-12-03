@@ -13,6 +13,9 @@
 
 ## Running Seeders
     `php artisan db:seed`
+    
+## Starting queue to listen
+    `php artisan queue:listen`
 
 ## Running tests
     `php artisan test --filter Transfer`

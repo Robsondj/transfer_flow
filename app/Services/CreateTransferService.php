@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Jobs\Email;
 use App\Validators\TransferValidator;
 use App\Repositories\TransferRepository;
 use Exception;
@@ -35,9 +36,7 @@ final class CreateTransferService implements ServiceInterface
         }
         DB::commit();
 
-        SendEmailConfirmationService::run([
-            "email" => $payee->email
-        ]);
+        Email::dispatch($payee->email);
         
         return true;
     }

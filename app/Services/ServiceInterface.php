@@ -2,7 +2,8 @@
 
 namespace App\Services;
 
-interface ServiceInterface {
+interface ServiceInterface
+{
 
     /**
      * Method to call service functionalities
@@ -10,6 +11,5 @@ interface ServiceInterface {
      * @param array $data|null
      * @return mixed
      */
-    public static function run($data): mixed;
-
+    public function run($data): mixed;
 }

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Jobs\Email;
+use App\Repositories\BaseRepository;
 use App\Validators\TransferValidator;
 use App\Repositories\TransferRepository;
 use Exception;
@@ -13,32 +14,36 @@ final class CreateTransferService implements ServiceInterface
 {
 
     /**
+     *
+     * @var TransferRepository
+     */
+    private $transferRepository = null;
+
+    public function __construct(TransferRepository $transferRepository)
+    {
+        $this->transferRepository = $transferRepository;
+    }
+
+    /**
      * Create a transfer between users
      *
      * @param array $data
      * @return void
      */
-    public static function run($data): bool 
+    public function run($data): bool
     {
         $transferValidator = new TransferValidator($data);
         $transferValidator->validate();
         $payer = $transferValidator->validatePayer();
         $payee = $transferValidator->validatePayee();
-        
-        $transferRepository = new TransferRepository();
 
-        DB::beginTransaction();
-        $transfer = $transferRepository->transfer($payer, $payee, Arr::get($data, 'value'));
-
-        if(empty($transfer) || !AuthorizeTransactionService::run()) {
-            DB::rollBack();
+        if (empty($transfer) || !AuthorizeTransactionService::run()) {
             throw new Exception("Unauthorized transaction.");
         }
-        DB::commit();
+        $transfer = $this->transferRepository->transfer($payer, $payee, Arr::get($data, 'value'));
 
         Email::dispatch($payee->email);
-        
+
         return true;
     }
-    
 }
